@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Meme Clicker</title>
+<style>
+    body{
+    text-align:center;
+    font-family:Arial;
+    background:#272727;
+}
+p{
+    height: 50px;
+    width: 100px; 
+    margin-left: 80px;
+}
+
+h1{
+    font-size:40px;
+}
+
+#cookie{
+    font-size:80px;
+    cursor:pointer;
+    width: 10px;
+    margin-left: 40px;
+}
+#cookie:hover{
+    transform: scale(1.02);
+}
+#cookie:active{
+    transform: scale(1.04);
+}
+.btnauto{
+    padding: 15px 40px;
+    border: none;
+    outline: none;
+    color: #FFF;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.btnauto::after{
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+
+}
+.btnauto::before{
+    content: "";
+    background: linear-gradient(
+        45deg,
+        #FF0000,#FF7300,#FFFB00,#48FF00,#00FFD5,#002BFF,#FF00C8,#FF0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600%;
+    z-index: -1;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    filter: blur(8px);
+    animation: glowing 20s linear infinite;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+@keyframes glowing{
+    0%{background-position: 0 0;} 
+    50%{background-position: 400% 0;}
+    100%{background-position: 0 0;} 
+}
+.btnauto:hover::before{
+    opacity: 1;
+    transform: scale(1.05);
+}
+.btnauto:active:after{
+    background: transparent;
+}
+.btnauto:active{
+    color: #000;
+    font-weight: bold;
+}
+.shop{
+    margin-top:30px;
+    height: 300px;
+    width: 200px;
+    position: absolute;
+    right: 50px;
+    top: 150px;
+}
+
+.box{
+    height: 200px;
+    width: 200px;
+    background: #1c1f2b;
+    position: relative;
+}
+.box::after, .box::before{
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 3px;
+  animation: 3s spin linear infinite;
+}
+.box::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+@keyframes spin{
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
+
+#cookieZone{
+    text-align:center;
+    margin-top:40px;
+    border: solid #000;
+    
+}
+
+#cookieZone img{
+    width:120px;
+    margin:10px;
+}
+
+.fallingCookie{
+    position: absolute;
+    width: 60px;
+    animation: fall 2s linear forwards;
+}
+
+@keyframes fall{
+    from{
+        transform: translateY(-500px);
+        opacity:1;
+    }
+
+    to{
+        transform: translateY(400px);
+        opacity:0;
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>Meme clicker</h1>
+
+<h2>Yuji : <span id="score">0</span></h2>
+<h1>boost X2</h1>
+<p>Auto clickers : <span id="autoCount">0</span></p> <p>Click Power : <span id="powerCount">0</span></p>
+
+<div id="cookie">
+    <div class="box">
+        <img id="falling" src = "https://i.redd.it/ez2oy2oex40c1.jpg" width="200px">
+    </div>
+</div>
+
+<div id="cookieZone">
+    <img id="cookieImg" src="https://i.redd.it/hncxbjroci7d1.jpeg" width="10">
+</div>
+
+
+<div class="shop">
+
+<h3>Boutique</h3>
+
+<button class="btnauto" onclick="upgradeClick()">
+thukuna +1 click (coût : 20)
+</button>
+
+<button class="btnauto" onclick="buyAuto()">
+
+    Auto click (coût : 50)
+
+</button>
+<button class="btnauto" onclick="upgradeClick2()">
+    
+    gotho +100 click (coût 1k)
+
+</button>
+
+<button class="btnauto" id="faaaaaaa" onclick="buyAuto2()">
+
+    faaaa +100 auto (coût : 1,5k)
+
+</button>
+<audio id="clickSound" src="faaaa.mp3"></audio>
+<button class="btnauto" id="juego" onclick="upgradeClick3()">
+
+    juego +1000 click (coût : 5k)
+
+</button>
+<button class="btnauto" id="higuruma" onclick="buyAuto3()">
+
+    higuruma +1000 auto (coût : 10k)
+
+</button>
+
+</div>
+<script>
+    let cookies = 0
+let clickPower = 1
+let auto = 0
+/*let maxImages = 9*/
+
+
+const score = document.getElementById("score")
+const cookie = document.getElementById("cookie")
+const autoDisplay = document.getElementById("autoCount")
+const powerDisplay = document.getElementById("powerCount")
+const sound = document.getElementById("clickSound")
+
+cookie.onclick = function(){
+    cookies += clickPower
+    update()
+    /*falling.onclick = function(){
+    cookie += clickPower
+    update()
+
+    fallingCookie()
+}*/
+}
+
+function upgradeClick(){
+    if(cookies >= 20){
+        cookies -= 20
+        clickPower += 1
+
+        /*let zone = document.getElementById("cookieZone")
+
+        if(zone.children.length < 9){
+            let newCookie = document.createElement("img")
+            newCookie.src = "thujunaa.jpeg"
+            newCookie.width = 10
+
+            zone.appendChild(newCookie)
+        }*/
+
+        update()
+    }
+}
+function upgradeClick2(){
+    if(cookies >= 1000){
+        cookies -= 1000
+        clickPower += 100
+        update()
+    }
+}
+
+function buyAuto(){
+    if(cookies >= 50){
+        cookies -= 50
+        auto += 1
+        update()
+    }
+}
+function buyAuto2(){
+    if(cookies >= 1500){
+        cookies -= 1500
+        auto += 100
+
+        update()
+    }
+}
+
+function upgradeClick3(){
+    if(cookies >= 5000){
+        cookies -= 5000
+        clickPower += 1000
+        update()
+    }
+}
+function buyAuto3(){
+    if(cookies >= 10000){
+        cookies -= 10000
+        auto += 1000
+
+        update()
+    }
+}
+
+function update(){
+    score.textContent = cookies
+    autoDisplay.textContent = auto
+    powerDisplay.textContent = clickPower
+}
+
+setInterval(function(){
+    cookies += auto
+    update()
+},1000)
+
+function fallingCookie(){
+
+    let cookie = document.createElement("img")
+    cookie.src = "gotho.png"
+
+    cookie.classList.add("fallingCookie")
+
+    cookie.style.left = Math.random()*window.innerWidth + "px"
+
+    document.body.appendChild(cookie)
+
+    setTimeout(() => {
+        cookie.remove()
+    },2000)
+
+}
+
+
+</script>
+</body>
+</html>
