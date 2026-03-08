@@ -1,7 +1,7 @@
 let cookies = 0
 let clickPower = 1
 let auto = 0
-let maxImages = 9
+/*let maxImages = 9*/
 
 
 const score = document.getElementById("score")
@@ -13,12 +13,12 @@ const sound = document.getElementById("clickSound")
 cookie.onclick = function(){
     cookies += clickPower
     update()
-    falling.onclick = function(){
-    cookies += clickPower
+    /*falling.onclick = function(){
+    cookie += clickPower
     update()
 
     fallingCookie()
-}
+}*/
 }
 
 function upgradeClick(){
@@ -26,7 +26,7 @@ function upgradeClick(){
         cookies -= 20
         clickPower += 1
 
-        let zone = document.getElementById("cookieZone")
+        /*let zone = document.getElementById("cookieZone")
 
         if(zone.children.length < 9){
             let newCookie = document.createElement("img")
@@ -34,7 +34,7 @@ function upgradeClick(){
             newCookie.width = 10
 
             zone.appendChild(newCookie)
-        }
+        }*/
 
         update()
     }
@@ -42,18 +42,7 @@ function upgradeClick(){
 function upgradeClick2(){
     if(cookies >= 1000){
         cookies -= 1000
-        clickPower += 2
-
-        let zone = document.getElementById("cookieZone")
-
-        if(zone.children.length < 9){
-            let newCookie = document.createElement("img")
-            newCookie.src = "thujunaa.jpeg"
-            newCookie.width = 10
-
-            zone.appendChild(newCookie)
-        }
-
+        clickPower += 100
         update()
     }
 }
@@ -68,13 +57,24 @@ function buyAuto(){
 function buyAuto2(){
     if(cookies >= 1500){
         cookies -= 1500
-        auto += 10
-        faaaaaaa.onclick = function(){
-    cookies += clickPower
-    update()
+        auto += 100
 
-    sound.play()
+        update()
+    }
 }
+
+function upgradeClick3(){
+    if(cookies >= 5000){
+        cookies -= 5000
+        clickPower += 1000
+        update()
+    }
+}
+function buyAuto3(){
+    if(cookies >= 10000){
+        cookies -= 10000
+        auto += 1000
+
         update()
     }
 }
